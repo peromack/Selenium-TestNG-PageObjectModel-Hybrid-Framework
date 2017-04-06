@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScenarioTestData>
+	<ScenarioName>Test Case: Bill-Hold Functionality</ScenarioName>
+	<AllowToRunOnGrid>No</AllowToRunOnGrid>
+	<TestData>
+		<ShipmentID>9999999</ShipmentID>
+		<BillNumber>123456</BillNumber>
+		<SCAC>ABCD</SCAC>
+		<HBILL>fff</HBILL>
+	</TestData>
+	<ScenarioName>Shipment Details Training Functionality</ScenarioName>
+	<TestData>
+		<ShipmentID>????</ShipmentID>
+		<BillNumber>????</BillNumber>
+		<SCAC>????</SCAC>
+		<HBILL>????</HBILL>
+	</TestData>
+	<AppData>
+	</AppData>
+</ScenarioTestData>

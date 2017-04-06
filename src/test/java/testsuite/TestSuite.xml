@@ -1,0 +1,81 @@
+<suite name="Import Cargo Automated Regression Test Suite">
+
+  <listeners>
+       <listener class-name="resources.SuiteListener"></listener>
+       <listener class-name="resources.TestListener"></listener>
+       <listener class-name="resources.GlobalTransformer"></listener>
+  </listeners>
+  
+ <parameter name="Browser-Type"  value="Google Chrome" />
+ <parameter name="Run-Type"  value="Local" />
+ <parameter name="RunTime-Environment"  value="sat" />
+ 
+ <test name="Actions Module: Test Suite">
+  <classes>
+   <class name="testsuite.ExamFindingsTestCase" />
+  </classes>
+ </test> 
+
+ 
+ <!--
+ 
+ 
+ <test name="Actions Module: Test Suite">
+  <classes>
+   <class name="testsuite.ActionsTestCases" />
+  </classes>
+ </test> 
+ 
+ 
+  <test name="Selenium GRID Testing: Test Suite">
+  <classes>
+   <class name="testsuite.TestingSeleniumGRID" />
+  </classes>
+ </test> 
+ 
+ <test name="Feedback Module: Test Suite">
+  <classes>
+   <class name="testsuite.FeedbackTestCases" />
+  </classes>
+ </test>
+ 
+ <test name="Miscellaneous Pages Module: Test Suite">
+  <classes>
+   <class name="testsuite.MiscellaneousPagesTestCases" />
+  </classes>
+ </test>
+ 
+ <test name="Shipment Dashboard Module: Test Suite">
+  <classes>
+   <class name="testsuite.ShipmentDashboardTestCases" />
+  </classes>
+ </test>
+ 
+ <test name="Shipment Details Module: Test Suite">
+  <classes>
+   <class name="testsuite.ShipmentDetailsTestCases" />
+  </classes>
+ </test>
+ 
+  <test name="Test Data Module: Test Suite">
+  <classes>
+   <class name="testsuite.CreateShipments" />
+  </classes>
+ </test>
+ 
+ 
+ -->
+
+</suite>
+
+<!--
+   <class name="testsuite.ShipmentDetailsTestCases" />
+   <class name="testsuite.UATApplicationTestCases" />
+   <class name="testsuite.TradeEntityTestCases" />
+   <class name="testsuite.TargetingResultsTestCases" />
+   <class name="testsuite.MiscellaneousPagesTestCases" />
+   <class name="testsuite.AdvancedSearchTestCases" />
+   <class name="testsuite.IconsTestCases" />
+   <class name="testsuite.ForeignUserTestCases" />
+   <class name="testsuite.FeedbackTestCases" />
+   -->

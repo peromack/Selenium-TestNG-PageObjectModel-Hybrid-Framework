@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScenarioTestData>
+	<ScenarioName>Shipment Details Training Functionality</ScenarioName>
+	<AllowToRunOnGrid>No</AllowToRunOnGrid>
+	<TestData>
+		<ShipmentID>????</ShipmentID>
+		<BillNumber>????</BillNumber>
+		<SCAC>????</SCAC>
+		<HBILL>????</HBILL>
+	</TestData>
+	<AppData>
+		<Pre-departure>
+			<ChildView1>Shipment</ChildView1>
+			<ChildView2>Bill Number (Type)</ChildView2>
+			<ChildView3>Select All</ChildView3>
+			<ChildView4>Enforcement Flags</ChildView4>
+			<ChildView5>Informational Flags</ChildView5>
+			<ChildView6>Threats</ChildView6>
+			<ChildView7>Threat Reasons</ChildView7>
+			<ChildView8>Shipper</ChildView8>
+			<ChildView9>Consignee</ChildView9>
+			<ChildView10>MOT - Conveyance</ChildView10>
+			<ChildView11>Bill Description (# Cntrs )</ChildView11>
+			<ChildView12>Quantity / Weight</ChildView12>
+			<ChildView13>Origin Country</ChildView13>
+			<ChildView14>Dest Country</ChildView14>
+			<ChildView15>Bill File Date</ChildView15>
+			<ChildView16>Review History</ChildView16>
+		</Pre-departure>
+		<Manifest>
+			<ChildView1>Shipment</ChildView1>
+			<ChildView2>Bill Number (Type)</ChildView2>
+			<ChildView3>Select All</ChildView3>
+			<ChildView4>Enforcement Flags</ChildView4>
+			<ChildView5>Informational Flags</ChildView5>
+			<ChildView6>Threats</ChildView6>
+			<ChildView7>Threat Reasons</ChildView7>
+			<ChildView8>Shipper</ChildView8>
+			<ChildView9>Consignee</ChildView9>
+			<ChildView10>MOT - Conveyance</ChildView10>
+			<ChildView11>Bill Description (# Cntrs )</ChildView11>
+			<ChildView12>Quantity / Weight</ChildView12>
+			<ChildView13>Origin Country</ChildView13>
+			<ChildView14>Place of Receipt</ChildView14>
+			<ChildView15>Port of Lading</ChildView15>
+			<ChildView16>Port of Unlading Sort Ascending</ChildView16>
+			<ChildView17>Dest Country</ChildView17>
+			<ChildView18>IB Type</ChildView18>
+			<ChildView19>IB Dest Port</ChildView19>
+			<ChildView20>Bill File Date</ChildView20>
+			<ChildView21>Est Arrival Date Sort Ascending</ChildView21>
+			<ChildView22>Review History</ChildView22>
+		</Manifest>
+		<Entry>
+			<ChildView1>Shipment</ChildView1>
+			<ChildView2>Bill Number (Type)</ChildView2>
+			<ChildView3>Entry Number (Type)</ChildView3>
+			<ChildView4>Select All</ChildView4>
+			<ChildView5>Enforcement Flags</ChildView5>
+			<ChildView6>Informational Flags</ChildView6>
+			<ChildView7>Threats</ChildView7>
+			<ChildView8>Threat Reasons</ChildView8>
+			<ChildView9>Reviewer</ChildView9>
+			<ChildView10>Shipper</ChildView10>
+			<ChildView11>Consignee</ChildView11>
+			<ChildView12>Importer</ChildView12>
+			<ChildView13>Ult. Consignee</ChildView13>
+			<ChildView14>MOT - Conveyance</ChildView14>
+			<ChildView15>Bill Description (# Cntrs )</ChildView15>
+			<ChildView16>Entry Description (# lines )</ChildView16>
+			<ChildView17>Quantity / Weight / Value</ChildView17>
+			<ChildView18>Origin Country</ChildView18>
+			<ChildView19>Place of Receipt</ChildView19>
+			<ChildView20>Port of Lading</ChildView20>
+			<ChildView21>Port of Unlading Sort Ascending</ChildView21>
+			<ChildView22>Dest Country</ChildView22>
+			<ChildView23>IB Type</ChildView23>
+			<ChildView24>IB Dest Port</ChildView24>
+			<ChildView25>Port of Entry</ChildView25>
+			<ChildView26>Bill File Date</ChildView26>
+			<ChildView27>Est Arrival Date Sort Ascending</ChildView27>
+			<ChildView28>Entry File Date</ChildView28>
+			<ChildView29>Entry Rlse Date</ChildView29>
+			<ChildView30>Review History</ChildView30>
+		</Entry>
+		<ISF>
+			<ChildView1>Shipment</ChildView1>
+			<ChildView2>Bill Number (Type)</ChildView2>
+			<ChildView3>Entry Number (Type)</ChildView3>
+			<ChildView4>ISF Number (Type)</ChildView4>
+			<ChildView5>Select All</ChildView5>
+			<ChildView6>Enforcement Flags</ChildView6>
+			<ChildView7>Informational Flags</ChildView7>
+			<ChildView8>Threats</ChildView8>
+			<ChildView9>Threat Reasons</ChildView9>
+			<ChildView10>Reviewer</ChildView10>
+			<ChildView11>Shipper</ChildView11>
+			<ChildView12>Consignee</ChildView12>
+			<ChildView13>Importer</ChildView13>
+			<ChildView14>Ult. Consignee</ChildView14>
+			<ChildView15>ISF Importer</ChildView15>
+			<ChildView16>MOT - Conveyance</ChildView16>
+			<ChildView17>Bill Description (# Cntrs )</ChildView17>
+			<ChildView18>Entry Description (# lines )</ChildView18>
+			<ChildView19>Quantity / Weight / Value</ChildView19>
+			<ChildView20>Origin Country</ChildView20>
+			<ChildView21>Place of Receipt</ChildView21>
+			<ChildView22>Port of Lading</ChildView22>
+			<ChildView23>Port of Unlading Sort Ascending</ChildView23>
+			<ChildView24>Dest Country</ChildView24>
+			<ChildView25>IB Type</ChildView25>
+			<ChildView26>IB Dest Port</ChildView26>
+			<ChildView27>Port of Entry</ChildView27>
+			<ChildView28>Bill File Date</ChildView28>
+			<ChildView29>Est Arrival Date Sort Ascending</ChildView29>
+			<ChildView30>Entry File Date</ChildView30>
+			<ChildView31>Entry Rlse Date</ChildView31>
+			<ChildView32>ISF File Date</ChildView32>
+			<ChildView33>Review History</ChildView33>
+		</ISF>
+	</AppData>
+</ScenarioTestData>

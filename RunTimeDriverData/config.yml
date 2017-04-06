@@ -1,0 +1,18 @@
+#-------------------------------------------------------------------------------------------------------------------------------------------------------
+#   This Property file is used to specify various parameters.
+#
+#    1. Scenario-Form: Are you using the Select Scenarios Form or the TestNG.xml? to run your tests. If you want to use the Form, insert the value 'On'.
+#                          If you want to use the TestNG.xml to run tests, leave the value blank or any value except for 'On'.
+#
+#       Select Scenarios Form: A UI-based form that allows the user to select which specific scenarios to run during runtime. 
+#		TestNG.xml: Part of the TestNG framework, you specify in advance which suite of tests to run along with various pre-determined parameters. 
+#
+#    2. Close-All-Windows-Between-Runs: This is used when the Scenario-Form parameter is set. This will close the window of a previous test if 
+#                   the next test is to run on a different browser. This is used to prevent from multiple browsers being opened during a Test Run.
+#
+#     
+#-------------------------------------------------------------------------------------------------------------------------------------------------------
+RunTimeDriverData:
+Scenario-Form:  'Off'
+Close-All-Windows-Between-Runs:  'On'
+#Session-ID:  0

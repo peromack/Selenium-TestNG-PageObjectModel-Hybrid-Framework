@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScenarioTestData>
+	<ScenarioName>TestCase: Summary Page Review Shipment Functionality</ScenarioName>
+	<AllowToRunOnGrid>No</AllowToRunOnGrid>
+	<TestData>
+		<ShipmentID>9999999</ShipmentID>
+		<BillNumber>123456</BillNumber>
+		<SCAC>ABCD</SCAC>
+		<HBILL>fff</HBILL>
+	</TestData>
+	<ScenarioName>Shipment Details Training Functionality</ScenarioName>
+	<TestData>
+		<ShipmentID>????</ShipmentID>
+		<BillNumber>????</BillNumber>
+		<SCAC>????</SCAC>
+		<HBILL>????</HBILL>
+	</TestData>
+	<AppData>
+		<View1>Pre-departure
+			<ChildView1>shipmentId</ChildView1>
+			<ChildView2>billNumber</ChildView2>
+			<ChildView3>Select All</ChildView3>
+			<ChildView4>Enforcement Flags</ChildView4>
+			<ChildView5>Informational Flags</ChildView5>
+			<ChildView6>threats</ChildView6>
+			<ChildView7>threatReasons</ChildView7>
+			<ChildView8>shipper.displayName</ChildView8>
+			<ChildView9>billConsignee.displayName</ChildView9>
+			<ChildView10>shipmentMot</ChildView10>
+			<ChildView11>conveyance</ChildView11>
+			<ChildView12>billDescription</ChildView12>
+			<ChildView13>cntrCount</ChildView13>
+			<ChildView14>quantity</ChildView14>
+			<ChildView15>weight</ChildView15>
+			<ChildView16>countryCode.displayName</ChildView16>
+			<ChildView17>destCountry.displayName</ChildView17>
+			<ChildView18>bolFilingDate</ChildView18>
+		</View1>
+		<View2>
+			Manifest
+			<ChildView1>shipmentId</ChildView1>
+			<ChildView2>billNumber</ChildView2>
+			<ChildView3>Select All</ChildView3>
+			<ChildView4>Enforcement Flags</ChildView4>
+			<ChildView5>Informational Flags</ChildView5>
+			<ChildView6>threats</ChildView6>
+			<ChildView7>threatReasons</ChildView7>
+			<ChildView8>shipper.displayName</ChildView8>
+			<ChildView9>billConsignee.displayName</ChildView9>
+			<ChildView10>shipmentMot</ChildView10>
+			<ChildView11>conveyance</ChildView11>
+			<ChildView12>billDescription</ChildView12>
+			<ChildView13>cntrCount</ChildView13>
+			<ChildView14>quantity</ChildView14>
+			<ChildView15>weight</ChildView15>
+			<ChildView16>countryCode.displayName</ChildView16>
+			<ChildView17>placeOfReceipt</ChildView17>
+			<ChildView18>portOfLading.code</ChildView18>
+			<ChildView19>portOfUnlading.code</ChildView19>
+			<ChildView20>destCountry.displayName</ChildView20>
+			<ChildView21>ibType</ChildView21>
+			<ChildView22>ibDestPort.code</ChildView22>
+			<ChildView23>bolFilingDate</ChildView23>
+			<ChildView24>arrivalDate</ChildView24>
+		</View2>
+		<View3>
+			Entry
+			<ChildView1>shipmentId</ChildView1>
+			<ChildView2>billNumber</ChildView2>
+			<ChildView3>entryNumber</ChildView3>
+			<ChildView4>Select All</ChildView4>
+			<ChildView5>Enforcement Flags</ChildView5>
+			<ChildView6>Informational Flags</ChildView6>
+			<ChildView7>threats</ChildView7>
+			<ChildView8>threatReasons</ChildView8>
+			<ChildView9>reviewer</ChildView9>
+			<ChildView10>shipper.displayName</ChildView10>
+			<ChildView11>billConsignee.displayName</ChildView11>
+			<ChildView12>importer.displayName</ChildView12>
+			<ChildView13>entryConsignee.displayName</ChildView13>
+			<ChildView14>shipmentMot</ChildView14>
+			<ChildView15>conveyance</ChildView15>
+			<ChildView16>billDescription</ChildView16>
+			<ChildView17>cntrCount</ChildView17>
+			<ChildView18>entryDescription</ChildView18>
+			<ChildView19>lineCount</ChildView19>
+			<ChildView20>quantity</ChildView20>
+			<ChildView21>weight</ChildView21>
+			<ChildView22>countryCode.displayName</ChildView22>
+			<ChildView23>placeOfReceipt</ChildView23>
+			<ChildView24>portOfLading.code</ChildView24>
+			<ChildView25>portOfUnlading.code</ChildView25>
+			<ChildView26>destCountry.displayName</ChildView26>
+			<ChildView27>ibType</ChildView27>
+			<ChildView28>ibDestPort.code</ChildView28>
+			<ChildView29>portOfEntry.code</ChildView29>
+			<ChildView30>bolFilingDate</ChildView30>
+			<ChildView31>arrivalDate</ChildView31>
+			<ChildView32>entryFilingDate</ChildView32>
+			<ChildView33>entryReleaseDate</ChildView33>
+		</View3>
+		<View4>
+			ISF
+			<ChildView1>shipmentId</ChildView1>
+			<ChildView2>billNumber</ChildView2>
+			<ChildView3>entryNumber</ChildView3>
+			<ChildView4>isfTransactionNumber</ChildView4>
+			<ChildView5>Select All</ChildView5>
+			<ChildView6>Enforcement Flags</ChildView6>
+			<ChildView7>Informational Flags</ChildView7>
+			<ChildView8>threats</ChildView8>
+			<ChildView9>threatReasons</ChildView9>
+			<ChildView10>reviewer</ChildView10>
+			<ChildView11>shipper.displayName</ChildView11>
+			<ChildView12>billConsignee.displayName</ChildView12>
+			<ChildView13>importer.displayName</ChildView13>
+			<ChildView14>entryConsignee.displayName</ChildView14>
+			<ChildView15>isfImporter.displayName</ChildView15>
+			<ChildView16>shipmentMot</ChildView16>
+			<ChildView17>conveyance</ChildView17>
+			<ChildView18>billDescription</ChildView18>
+			<ChildView19>cntrCount</ChildView19>
+			<ChildView20>entryDescription</ChildView20>
+			<ChildView21>lineCount</ChildView21>
+			<ChildView22>quantity</ChildView22>
+			<ChildView23>weight</ChildView23>
+			<ChildView24>value</ChildView24>
+			<ChildView25>countryCode.displayName</ChildView25>
+			<ChildView26>placeOfReceipt</ChildView26>
+			<ChildView27>portOfLading.code</ChildView27>
+			<ChildView28>portOfUnlading.code</ChildView28>
+			<ChildView29>destCountry.displayName</ChildView29>
+			<ChildView30>ibType</ChildView30>
+			<ChildView31>ibDestPort.code</ChildView31>
+			<ChildView32>portOfEntry.code</ChildView32>
+			<ChildView33>bolFilingDate</ChildView33>
+			<ChildView34>arrivalDate</ChildView34>
+			<ChildView35>entryFilingDate</ChildView35>
+			<ChildView36>entryReleaseDate</ChildView36>
+			<ChildView37>isfFilingDate</ChildView37>
+		</View4>
+	</AppData>
+</ScenarioTestData>

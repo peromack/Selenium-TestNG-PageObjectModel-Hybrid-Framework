@@ -1,0 +1,139 @@
+************************************************************PLEASE README BEFORE ATTEMPTING TO RUN THE SELENIUM JAVA PROJECT FOR THE FIRST TIME!!!*********************
+
+SETUP
+Running Selenium Java on your Local Machine
+
+1. verify that the below director exists. If it does not exist, create one
+	C:/Selenium
+
+2. -Copy over the following folder(s) from S:\TASPO\Public\Abe\import-cargo-ui-automated-test-framework and paste in inside the C:/Selenium/ directory:
+	-BrowserDrivers
+
+
+3. Based on which IDE you are using, make sure you have the proper extensions are installed. For example, in Eclipse install the following: 
+	-Buildship (this is the gradle plugin used in Eclipse.
+	-TestNG (this is the NUnit test framework that is used to run the tests. 
+	-Egit or Git (used to manage the version control).
+
+ 
+4. Make sure no errors exist within the project before running (duh!), if errors exist, go ahead and run the following commands on the command line of 
+   where your project workspace is located. e.g., "C:/Users/your-hash/workspace/your-project 
+   
+   gradlew clean
+   gradlew build --refresh-dependencies
+   gradlew eclipse  (based on the IDE you are using)
+   
+   within your IDE (e.g., Eclipse), right click on the project and select 'Refresh'. 
+   again, write click on the project, go the Gradle Option, then select Refresh Gradle Project.
+   
+   Note: if compile errors still exist after the above steps, contact the import cargo team Test team for further assistance.
+************************************************************************************************************************************************************************
+ 
+ PARAMETERS
+ Parameters and their options that can be managed in the src/test/java/testSuite/TestSuite.xml file.
+ 
+ 1. Run-Type parameter defines whether Test(s) will be ran on the GRID or on the local machine.
+ that can be set in the   
+ 
+ <parameter name="Run-Type"  value="Local"/>
+ <parameter name="Run-Type"  value="GRID"/>
+ 
+ 
+ 2. Browser-Type parameter defines which browser will be used to run the tests.
+ 
+ <parameter name="Browser-Type"  value="Internet Explorer" />
+ <parameter name="Browser-Type"  value="FireFox" />
+ <parameter name="Browser-Type"  value="Google Chrome" />
+ 
+ 3. Environment parameter defines which Environment (DEV/SAT/PROD etc.) the tests will run on. 
+ 
+ <parameter name="Environment"  value="SAT" />
+ <parameter name="Environment"  value="DEV" />
+ ************************************************************************************************************************************************************************
+ 
+ RUNNING TESTS USING GRADLE
+ 
+ run the following command to run tests on Gralde: 
+ gradlew test
+ 
+ in Eclipse, this can be done using the Gradle Task window by doing the following: 
+   -Drill down the project folder, drill down on the verification folder, dbl click on test. 
+   
+  
+  RUNNING TESTS using TestNG
+  
+  -Right click on the testNG.xml file, select Run As, and Select Run as TestNG Suite. file is found on projectRoot/src/test/java/testSuite/TestSuite.xml
+  -Refer to the testNG documentation on the web for additional training on TestNG. 
+************************************************************************************************************************************************************************  
+ 
+  RUNNING TESTS using Custom-built Scenarios Form paired with TestNG
+  
+  -Within the project root folder, go the the RunTimeDriverData folder, and open the config.yml file.
+  -Within the property file, the top section will describe the name and function of the parameters used. For the Scenario-Form parameter, verify or set to 'On' (make sure to leave the single quote).
+  -Save the changes and Run the test as a TestNG suite described above.
+  
+ *************************************************Additional instructions on how to use the Form will be developed soon*************************************************
+ 
+ NAMING CONVENTIONS
+ 
+ -Test case names are named as accordingly: 
+    -Verb Feature e.g., Place Bill Hold
+      -Test cases for import cargo are found on the following confluence space https://confluence.cbp.dhs.gov/display/TIC/Import+Cargo+Functional+and+Regression+Testing
+      -The test case method names should match the test case name found on Confluence.
+ 
+ -All java packages, classes, methods, and variables should be named according to java naming standards (naming standards can be found online). 
+ 
+ TESTNG Sequencing Hierarchy: 
+  -The below sequence describes the order TestNG will execute the annotations. This is important to know for framework management. 
+ 
+@Before Suite 
+This will execute before the Test Suite
+
+	@BeforeTest 
+	This will execute before the Test
+
+		@BeforeClass
+		This will execute before the Class
+
+			@Before Method
+			This will execute before every Method
+
+				@Test
+				This is the Test Case 1
+
+			@AfterMethod
+			This will execute after every Method
+
+			@BeforeMethod
+			This will execute before every Method
+
+				@Test
+				This is the Test Case 2
+
+			@AfterMethod
+			This will execute after every Method
+
+		@AfterClass
+		This will execute after the Class
+
+	@AfterTest
+	This will execute after the Test
+
+@AfterSuite
+This will execute after the Test Suite
+
+
+*****************************************************************************Selenium GRID notes*******************************************************************************
+
+I.P address: 10.153.176.186 
+URL: http://10.153.176.186:4444/wd/hub
+
+ 
+ TestNG documentations and tutorial links found on the Web. 
+ 
+http://toolsqa.com/selenium-webdriver/testng-annotations-groups-depends/
+http://www.guru99.com/page-object-model-pom-page-factory-in-selenium-ultimate-guide.html
+https://seleniumeasy.com/testng-tutorials/assertions-in-testng 
+http://seleniumeasy.com/testng-tutorials/how-to-take-screenshot-for-only-failed-tests-using-webdriver
+
+
