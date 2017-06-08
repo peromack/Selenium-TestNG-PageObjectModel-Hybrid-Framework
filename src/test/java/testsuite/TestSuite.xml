@@ -7,18 +7,24 @@
   </listeners>
   
  <parameter name="Browser-Type"  value="Google Chrome" />
- <parameter name="Run-Type"  value="Local" />
+ <parameter name="Run-Type"  value="GRID" />
  <parameter name="RunTime-Environment"  value="sat" />
  
- <test name="Actions Module: Test Suite">
+
+ <test name="Selenium GRID Testing: Test Suite">
   <classes>
-   <class name="testsuite.ExamFindingsTestCase" />
+   <class name="testsuite.SmokeTest" />
   </classes>
  </test> 
 
  
  <!--
  
+  <test name="Actions Module: Test Suite">
+  <classes>
+   <class name="testsuite.ExamFindingsTestCase" />
+  </classes>
+ </test> 
  
  <test name="Actions Module: Test Suite">
   <classes>

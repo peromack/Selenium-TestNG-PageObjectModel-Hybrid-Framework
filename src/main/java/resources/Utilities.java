@@ -27,6 +27,7 @@ import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
@@ -74,9 +75,13 @@ public class Utilities  {
 	static PatternLayout layout;
 	static ConsoleAppender consoleAppender;
 	static FileAppender fileAppender;
+	
+	//Other variables
+	public static String shmptId, billNbr, EntryNbr, EntrySummaryLines;
 	static String timeStamp;
 	public static String parentHandle, parentHandle2, parentHandle3;
 	public static String tmp, tmp2, tmp3, tmp4;
+	public static boolean reportFailedTest = false;
 	
 	//Variables used for XML files
 	public static int ChildViewInc;
@@ -119,13 +124,13 @@ public class Utilities  {
 	public static String devServerName = "d521pr";
 	public static String satServerName = "s556db";
 	
-	public static String devHost = "cbp-dm12.sat.cbp.dhs.gov";
-	public static String satHost = "cbp-dm17.sat.cbp.dhs.gov";
+	public static String devHost = "cbp-dm11.sat.cbp.dhs.gov";
+	public static String satHost = "cbp-dm10.sat.cbp.dhs.gov";
 	
 	public static String username = "icstdaut";
 	
 	public static String devPassword = "3#Reston";
-	public static String satPassword = "3#Reston";
+	public static String satPassword = "4#Reston";
 	
 	public static String portNumber = "1521";
 	
@@ -139,6 +144,7 @@ public class Utilities  {
 	public static boolean expectedResultMatchesActual;
 	public static String actualQueryResult;
 	
+	private static final String GRID_URL = "http://10.158.67.235:4445/wd/hub/";
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
@@ -170,6 +176,10 @@ public class Utilities  {
 			fileAppender.setFile("C:/Selenium/logs/" + RunTimeTestCase + "_" 
 					+ RunTimeEnv + "_" + RunTimeBrowser 
 					+ "_" + timeStamp + ".log4j");
+		}else{
+			fileAppender.setFile("logs/" + RunTimeTestCase + "_" 
+					+ RunTimeEnv + "_" + RunTimeBrowser 
+					+ "_" + timeStamp + ".log4j");
 		}
 		
 		fileAppender.setLayout(layout);
@@ -184,11 +194,11 @@ public class Utilities  {
 		// configures the root logger
 		rootLogger = Logger.getRootLogger();
 		
-		if(RunType.contentEquals("Local")){
+		//if(RunType.contentEquals("Local")){
 			rootLogger.setLevel(Level.INFO);
-		}else{
-			rootLogger.setLevel(Level.OFF);
-		}
+		//}else{
+			//rootLogger.setLevel(Level.OFF);
+		//}
 		
 		
 		
@@ -262,13 +272,34 @@ public class Utilities  {
 
 	public static void deleteLogsOlderThanNDays() {
 
-		int daysBack = 7; // Logs older than 7 days will be deleted at the end of each run
+		int daysBack = 1; // Logs older than X days will be deleted at the end of each run
+		
+		String workingDirectory = System.getProperty("user.dir");
+		String filePath = workingDirectory + File.separator + "logs" + File.separator;
 
 		File directory = new File("C:\\Selenium\\logs\\");
+		File GRIDdirectory = new File(filePath);
 
+		//Logs for running locally
 		if (directory.exists()) {
 
 			File[] listFiles = directory.listFiles();
+			long purgeTime = System.currentTimeMillis()
+					- (daysBack * 24 * 60 * 60 * 1000);
+			for (File listFile : listFiles) {
+				if (listFile.lastModified() < purgeTime) {
+					if (!listFile.delete()) {
+						System.err.println("Unable to delete file: " + listFile);
+					}
+				}
+			}
+		}
+		
+		daysBack = 1;
+		//Logs created when running on GRID
+		if (GRIDdirectory.exists()) {
+
+			File[] listFiles = GRIDdirectory.listFiles();
 			long purgeTime = System.currentTimeMillis()
 					- (daysBack * 24 * 60 * 60 * 1000);
 			for (File listFile : listFiles) {
@@ -283,10 +314,15 @@ public class Utilities  {
 	
 	public static void deleteScreenshotsOlderThanNDays() {
 
-		int daysBack = 7; // Screenshots older than 7 days will be deleted at the end of each run
-
+		int daysBack = 1; // Screenshots older than X days will be deleted at the end of each run
+		
+		String workingDirectory = System.getProperty("user.dir");
+		String filePath = workingDirectory + File.separator + "Screenshots" + File.separator;
+		
 		File directory = new File("C:\\Selenium\\Screenshots\\");
-
+		File GRIDdirectory = new File(filePath);
+		
+		//Screenshots when running Locally
 		if (directory.exists()) {
 
 			File[] listFiles = directory.listFiles();
@@ -299,7 +335,26 @@ public class Utilities  {
 					}
 				}
 			}
+			
 		}
+		
+		daysBack = 1;
+		//Screenshots when running on GRID
+		if (GRIDdirectory.exists()) {
+
+			File[] listFiles = GRIDdirectory.listFiles();
+			long purgeTime = System.currentTimeMillis()
+					- (daysBack * 24 * 60 * 60 * 1000);
+			for (File listFile : listFiles) {
+				if (listFile.lastModified() < purgeTime) {
+					if (!listFile.delete()) {
+						System.err.println("Unable to delete file: " + listFile);
+					}
+				}
+			}
+			
+		}
+		
 	}
 
 	public static void internetExplorerBrowserSettings(String RunType) throws Exception {
@@ -379,8 +434,10 @@ public class Utilities  {
 
 			ChromeOptions options = new ChromeOptions();
 			final String InitDriver = "webdriver.chrome.driver";
-			final String startDriver = "C:/Selenium/BrowserDrivers/chromedriver_win32/chromedriver2.25.exe";
-			options.addArguments("chrome.switches", "--disable-extensions");
+			final String startDriver = "C:/Selenium/BrowserDrivers/chromedriver_win32/chromedriver2.29.exe";
+			//options.addArguments("chrome.switches", "--disable-extensions");
+			options.setExperimentalOption("useAutomationExtension", false);
+			options.addArguments("start-maximized");
 			System.setProperty(InitDriver, startDriver);
 
 			driver = new ChromeDriver(options);
@@ -390,30 +447,37 @@ public class Utilities  {
 			
 			DesiredCapabilities capability = new DesiredCapabilities();
 			capability.setBrowserName(DesiredCapabilities.chrome().getBrowserName());
-			driver = new RemoteWebDriver(new URL("http://10.153.176.186:4444/wd/hub"), capability);
+			//driver = new RemoteWebDriver(new URL("http://10.153.176.186:4444/wd/hub"), capability);
+			driver = new RemoteWebDriver(new URL(GRID_URL), capability);
 			System.out.println("Google Chrome WebDriver Has Started");
 			
 		}else{ //By Default, Local will be used.
 			
 			ChromeOptions options = new ChromeOptions();
 			final String InitDriver = "webdriver.chrome.driver";
-			final String startDriver = "C:/Selenium/BrowserDrivers/chromedriver_win32/chromedriver2.25.exe";
-			options.addArguments("chrome.switches", "--disable-extensions");
+			final String startDriver = "C:/Selenium/BrowserDrivers/chromedriver_win32/chromedriver2.29.exe";
+			//options.addArguments("chrome.switches", "--disable-extensions");
+			options.setExperimentalOption("useAutomationExtension", false);
+			options.addArguments("start-maximized");
 			System.setProperty(InitDriver, startDriver);
-			
+
 			driver = new ChromeDriver(options);
-			//System.out.println("Google Chrome Driver Has Started");
 		}
 	}
 	
-	public static void manageDriverOptionsAndLoginToApp(String RunTimeEnv){
+	public static void manageDriverOptionsAndLoginToApp(String RunTimeEnv, String RunType, String RunTimeBrowser){
 		
 		 //wait = new FluentWait(driver); //What was this used for again???
 		
 		 driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS); // Implicit Wait timeout settings.
 		 driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS); // Page Load timeout settings.
 	     driver.navigate().to("https://apps-" + RunTimeEnv + ".sat.cbp.dhs.gov/ta/sso/test/");
-		 driver.manage().window().maximize();
+	     
+	     if(RunTimeBrowser.equalsIgnoreCase("Google Chrome") && RunType.equalsIgnoreCase("Local")){
+	    	 //skip maximizing window
+	     }else{
+	    	 driver.manage().window().maximize();
+	     }
 	
 		
 	}
@@ -724,6 +788,23 @@ public class Utilities  {
 					wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CustomLocator)));
 				break;
 			}
+	}
+	
+	public static void waitForElementToLongerBeStale(By by, int retryCount) throws Exception {
+		
+		
+		for(int i = 0; i <= retryCount; i++ ){
+			
+			try {
+				driver.findElement(by);
+				log.info("Element is not stale! Safe to interact with");
+				i=retryCount ; //exit loop
+			} catch (StaleElementReferenceException e) {
+				log.info("Element is currently stale! Do not Interact");
+				Thread.sleep(500); //polling every half a second
+			}
+		}
+		
 	}
 	
 	public static void getXMLAppDataColumnInformation() {
@@ -1506,6 +1587,26 @@ public class Utilities  {
 		
 	}
 	
+	public static void establishOracleConnection(String smokeTest) throws SQLException {
+		
+		String dbEnv = null;
+		
+		
+			dbEnv = Utilities.getRunTimeEnv();
+			
+			//Uses Test Accounts
+			if(dbEnv.equalsIgnoreCase("DEV")){
+				myCon = java.sql.DriverManager.getConnection(devUrl, username, devPassword);
+				log.info("Succesfully logged into DEV DB");
+			}else if(dbEnv.equalsIgnoreCase("SAT")){
+				myCon = java.sql.DriverManager.getConnection(satUrl, username, satPassword);
+				log.info("Succesfully logged into SAT DB");
+			}else{
+				
+			}
+					
+	}
+	
 	public static void closeConnections() {
 		
 		try{
@@ -1516,6 +1617,11 @@ public class Utilities  {
 		}catch(Exception SQLClose) {
 			System.out.println("There are Open Connecitons in the DB");
 		}
+	}
+	
+	public static void logOutofDb() throws SQLException{
+		
+			myCon.close();	
 	}
 	
 	public static void runAndVerifyCustomSQLQuery(String customQuery, String columnName, String expectedQueryResult, String actualQueryResult) throws Exception{
@@ -1542,15 +1648,82 @@ public class Utilities  {
 		}
 	}
 	
+	public static void runSqlQuery(String customQuery, String columnName) throws Exception{
+		
+		query = customQuery;
+		boolean returnsResult = false;
+		
+		
+		for(int i = 0; i <= 60; i++) { //loops for 5 minutes
+		
+			try {
+				stmt = myCon.createStatement();
+				result = stmt.executeQuery(query);
+				
+				//Handle Empty Values
+				if(result.next()){
+			    	actualQueryResult = result.getString(columnName);
+			    	returnsResult = true;
+			    	reportFailedTest = false;
+			    	System.out.println("Results are returned for: " + columnName + " for Query = " + query);
+				}else{
+					returnsResult = false;
+					reportFailedTest = true;
+					System.out.println("No results returned for: " + columnName + " for Query = " + query);
+				}
+				
+			
+				switch(columnName){
+				
+				case "SHPMT_ID":
+					shmptId = actualQueryResult;
+					break;
+					
+				case "BILL_NBR":
+					billNbr = actualQueryResult;
+					break;
+					
+				case "ENTRY_NBR":
+					EntryNbr = actualQueryResult;
+					break;
+					
+				case "ES_LINES":
+					EntrySummaryLines = actualQueryResult;
+					break;
+				}
+			
+			} catch (SQLException e) {
+				log.error("Could not retrieve info! Error thrown is " + e);
+				
+			}
+			
+		  if(returnsResult == false){
+			  Thread.sleep(5000);
+		  }else{
+			  i = 60;
+		  }
+		
+		}
+		
+		
+	}
+	
+	public static Boolean shouldTestBeFailed(){
+		
+		boolean tmp = reportFailedTest;
+		return tmp;
+	}
+	
 	public static void takeScreenshot(){
 		
-		String filePath = "Screenshots\\";
+		String workingDirectory = System.getProperty("user.dir");
+		String filePath = workingDirectory + File.separator + "Screenshots" + File.separator;
 		
 		 File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		 
          try {
          	timeStamp = new SimpleDateFormat("yyyyMMdd.HHmmss").format(new Date());
-			FileUtils.copyFile(scrFile, new File(filePath + "beforeClass" +"_"+ timeStamp +".png"));
+			FileUtils.copyFile(scrFile, new File(filePath + "testPassed" +"_"+ ScenarioName + "_" + timeStamp +".png"));
 		 }catch (IOException e) {
 				e.printStackTrace();
 			}

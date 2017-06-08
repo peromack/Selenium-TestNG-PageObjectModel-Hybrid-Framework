@@ -59,9 +59,12 @@ public class GlobalTransformer implements IAnnotationTransformer2 {
 	public void transform(ITestAnnotation annotation, @SuppressWarnings("rawtypes") Class testClass, @SuppressWarnings("rawtypes") Constructor testConstructor, Method testMethod) {
 		
 		if(skipCondition == false){
-			Utilities.validateFilePathsForLocalMachine();
 			GetPropertyFileInfo();
-			ScenarioCount = Utilities.returnScenarioCount();
+			
+			if(valueForScenarioSelection.equalsIgnoreCase("On")){
+				Utilities.validateFilePathsForLocalMachine();
+				ScenarioCount = Utilities.returnScenarioCount();
+			}
 			Utilities.initalizeLog4j();
 			Utilities.getPropertyFileInfo();
 			skipCondition = true;

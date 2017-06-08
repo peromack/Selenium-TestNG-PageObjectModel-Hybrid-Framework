@@ -27,7 +27,7 @@ public class ShipmentSummaryDashboard extends Utilities{
 	By postDocumentReviewEntryHold = By.linkText("Post Document Review Entry Hold");
 	By postEntryOverrideToGeneral = By.linkText("Post Entry Override to General");
 	By reviewShipment = By.linkText("Review Shipment");
-	By enterExamFindings = By.linkText("Enter Exam Findings");
+	By enterExamFindings = By.xpath("//a[@title='Link to Enter Exam Findings for this Shipment']");
 	By enterNotExaminedEvent = By.linkText("Enter Not Examined Event");
 		
 	
@@ -38,9 +38,6 @@ public class ShipmentSummaryDashboard extends Utilities{
 	By selectAllCheckBox = By.id("selectAll");
 	By runTimeBillNumberFromSummaryTable = By.xpath("//span[@cell='billNumber']");
 	By runTimeEntryNumberFromSummaryTable = By.xpath("//span[@cell='entryNumber']");
-	String runTimeBillNum;
-	String runTimeEntryNum;
-	String xmlpath;
 	By shipmentId = By.xpath("//span[@cell='shipmentId']/a");
 	By allColumnNames = By.xpath("//*[@class='list-group-item headers']/div//li");
 	By summaryTableRecords = By.xpath("//span[@content='results-description']");
@@ -56,16 +53,25 @@ public class ShipmentSummaryDashboard extends Utilities{
 	By railDisplay = By.xpath("//div[@content='display-filters']/button[@data-name='RAIL']");
 	By truckDisplay = By.xpath("//div[@content='display-filters']/button[@data-name='TRUCK']");
 	By clearMOTfilter = By.id("clear-filters_mot");
-	int airSideBarRecord;
-	int previousRecordCount, intPreviousAirCountSummary;
-	String previousCountSummary;
-	boolean matchFound;
-	String previousrecordText;
+	By shipperlink = By.xpath("//span[@cell='shipper']/a[@rel='tooltip']");
+	By seaFilterCheckbox = By.name("filter_mot_1");
+	By railFilterCheckbox = By.name("filter_mot_2");
+	By truckFilterCheckbox = By.name("filter_mot_3");
+	By airFilterCheckbox = By.name("filter_mot_4");
+	By noMotFilterCheckbox = By.name("filter_mot_-1");
 	
 	//variables
 	String shipmentDetailsExpectedPage;
 	String currentTab;
 	String columnName;
+	String previousCountSummary;
+	String runTimeBillNum;
+	String runTimeEntryNum;
+	String xmlpath;
+	int airSideBarRecord;
+	int previousRecordCount, intPreviousAirCountSummary;
+	boolean matchFound;
+	String previousrecordText;
 	
 	
 	//Views
@@ -106,6 +112,7 @@ public class ShipmentSummaryDashboard extends Utilities{
 	}
 	
 	public void clickOnEnterExamFindingsButton(){
+		
 		
 		driver.findElement(enterExamFindings).click();
 		log.info("Clicked on Enter Exam Findings Button");
@@ -333,9 +340,11 @@ public class ShipmentSummaryDashboard extends Utilities{
 	public void clickOnActionsDropDownMenu(String WhichPageAreYouOn) {
 		
 		if(WhichPageAreYouOn.equalsIgnoreCase("Shipment Summary")){
+			explicitWaitwaitForElementToBeClickable("xpath", "//button[@title='Actions']", 10);
 			driver.findElement(shipmentSummaryActionsButton).click();
 			log.info("Clicked on the 'Actions' drop down menu from Shipment Summary Page");
 		}else if (WhichPageAreYouOn.equalsIgnoreCase("Shipment Detail")){
+			explicitWaitwaitForElementToBeVisible("xpath", "//a[@title='Actions']", 10);
 			driver.findElement(shipmentDetailsActionsButton).click();
 			log.info("Clicked on the 'Actions' drop down menu from Shipment Detail Page");
 		}else{
@@ -622,6 +631,70 @@ public class ShipmentSummaryDashboard extends Utilities{
 		}
 	} 
 	
+	public void checkSpecifiedMOTFilterExistsAndClickOnIt (String modeOfTransrpot) throws Exception {
+		
+		
+		switch(modeOfTransrpot){
+		
+		case "Sea":
+			
+			explicitWaitwaitForElementToBeVisible("name", "filter_mot_1", 10);
+			log.info(modeOfTransrpot + "  Element has became visible");
+
+			waitForElementToLongerBeStale(seaFilterCheckbox, 10);
+			
+			driver.findElement(By.name("filter_mot_1")).click();
+			waitUntilRecordCountHasChanged(modeOfTransrpot, false);
+			break;
+		
+		case "Rail":
+			
+			explicitWaitwaitForElementToBeVisible("name", "filter_mot_2", 10);
+			log.info(modeOfTransrpot + "  Element has became visible");
+			
+			waitForElementToLongerBeStale(railFilterCheckbox, 10);
+			
+			driver.findElement(By.name("filter_mot_2")).click();
+			waitUntilRecordCountHasChanged(modeOfTransrpot, false);
+			break;
+			
+		case "Truck":
+			
+			explicitWaitwaitForElementToBeVisible("name", "filter_mot_3", 10);
+			log.info(modeOfTransrpot + "  Element has became visible");
+			
+			waitForElementToLongerBeStale(truckFilterCheckbox, 10);
+			
+			driver.findElement(By.name("filter_mot_3")).click();
+			waitUntilRecordCountHasChanged(modeOfTransrpot, false);
+			break;
+			
+		case "Air":
+			
+			explicitWaitwaitForElementToBeVisible("name", "filter_mot_4", 10);
+			log.info(modeOfTransrpot + "  Element has became visible");
+			
+			waitForElementToLongerBeStale(airFilterCheckbox, 10);
+			
+	    	driver.findElement(By.name("filter_mot_4")).click();
+	    	waitUntilRecordCountHasChanged(modeOfTransrpot, false);
+			break;
+			
+		case "No MOT":
+			
+			explicitWaitwaitForElementToBeVisible("name", "filter_mot_-1", 10);
+			log.info(modeOfTransrpot + "  Element has became visible");
+			
+			waitForElementToLongerBeStale(noMotFilterCheckbox, 10);
+			
+			driver.findElement(By.name("filter_mot_-1")).click();
+			waitUntilRecordCountHasChanged("None", false);
+			break;
+			
+		}
+		
+	}
+	
 	public void waitUntilRecordCountHasChanged(String whichMot, boolean verifyLoadingStatus) throws Exception {
 	   
 	    
@@ -743,5 +816,12 @@ public class ShipmentSummaryDashboard extends Utilities{
 		
 		}
    }
+	
+	public void clickOnShipperToolTip(){
+		
+		explicitWaitwaitForElementToBeVisible("xpath", "//span[@cell='shipper']/a[@rel='tooltip']", 5);
+		driver.findElement(shipperlink).click();
+		log.info("Clicked On Shipper Link from the Dashboard Page");
+	}
 }
 

@@ -16,12 +16,13 @@ import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 
 import resources.Utilities;
-
 import testsuite.ActionsTestCases;
 import testsuite.FeedbackTestCases;
 import testsuite.MiscellaneousPagesTestCases;
 import testsuite.ShipmentDashboardTestCases;
 import testsuite.ShipmentDetailsTestCases;
+import testsuite.SmokeTest;
+import testsuite.TradeEntityTestCases;
 
 
 
@@ -44,9 +45,12 @@ public class TestListener implements ITestListener {
     	
     	String RunType = Utilities.getRunType();
     	
-    	if(RunType.contentEquals("GRID")){ 
-    		filePath = "Screenshots\\";
+    	if(RunType.contentEquals("GRID")){
+    		String workingDirectory = System.getProperty("user.dir");
+    		filePath = workingDirectory + File.separator + "Screenshots" + File.separator;
     	}else{ 
+    		//String workingDirectory = System.getProperty("user.dir");
+    		//filePath = workingDirectory + "C:" + File.separator + "Selenium"+ File.separator + "Screenshots" + File.separator;
     		filePath = "C:\\Selenium\\Screenshots\\";
     	}
     	
@@ -99,6 +103,10 @@ public class TestListener implements ITestListener {
     			driver = FeedbackTestCases.driver;
     			break;
     			
+    		case "SmokeTest":
+    			driver = SmokeTest.driver;
+    			break;
+    			
     		default:
     			System.out.println("ERROR: Unable to grab Correct Caller Class!!!");
     			break;
@@ -111,7 +119,7 @@ public class TestListener implements ITestListener {
             	
 	            	
             	
-				FileUtils.copyFile(scrFile, new File(filePath+methodName+"_"+timeStamp+".png"));
+				FileUtils.copyFile(scrFile, new File(filePath + "testFailed" + "_" + methodName + "_" + timeStamp + ".png"));
 				//System.out.println("***Placed screen shot in "+filePath+" ***");
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -135,7 +143,7 @@ public class TestListener implements ITestListener {
   
     public void onTestStart(ITestResult result) {  }
   
-    public void onTestSuccess(ITestResult result) {   }
+    public void onTestSuccess(ITestResult result) {  }
 
     public void onTestSkipped(ITestResult result) {   }
 

@@ -6,12 +6,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 
+
+
+
 import resources.Utilities;
 
 public class ShipmentDetails extends Utilities{
 	
 	WebDriver driver;
 
+	//Page Check
+	By shipmentId = By.xpath("//div[@id='detail-header']/div[2]/div[4]/span");
 	
 	//Actions options
 	By postBillHold = By.linkText("Post Bill Hold");
@@ -23,9 +28,13 @@ public class ShipmentDetails extends Utilities{
 	
 	By runTimeBillNumberFromSummaryTable = By.xpath("//span[@cell='billNumber']");
 	By runTimeEntryNumberFromSummaryTable = By.xpath("//span[@cell='entryNumber']");
+	
+	//variables
 	String runTimeBillNum;
 	String runTimeEntryNum;
+	String runtimeShipmentId;
 	String xmlpath;
+	String shipmentDetailsPageName;
 	
 	//Shipment Detail Elements
 	By actionsButton = By.xpath("(//button[@title='Actions'])");
@@ -37,11 +46,19 @@ public class ShipmentDetails extends Utilities{
 	By preDepartureView = By.xpath("(//a[@data-value='preDepartureView'])");
 	By iSFview = By.xpath("(//a[@data-value='summaryIsfView'])");
 	
+	//Entry External Links
+	By EBondLink = By.xpath("//a[@title='Link to Enter EBond']");
+	By CargoReleaseLink = By.xpath("//a[@title='Link to Enter Cargo Release']");
+	By EntrySummaryLink = By.xpath("//a[@title='Link to Enter Entry Summary']");
+	By PGALink = By.xpath("//a[@title='Link to Enter PGA Data Processing']");
+	By UPAXLink = By.xpath("//div[@id='header-truck']//span[@class='fa fa-external-link fa-fw']");
+	
 	//Other WebElements
 	By currentlyLoggedInUser = By.xpath("//span[contains(text(), 'HHH4001 SAT TESTER SE/AES CBP SUPVR USER')]");
 	By trainingPageLink = By.linkText("Training");
 	By PreferencesPageLink = By.linkText("Preferences");
 	By addNoteLink = By.linkText("Capture Note for Shipment");
+	By shipperLink = By.xpath("//div[@section='bill-parties']/div/address/div//a[@rel='tooltip']");
 
 	public ShipmentDetails(WebDriver driver) {
 		
@@ -54,6 +71,30 @@ public class ShipmentDetails extends Utilities{
 		explicitWaitwaitForElementToBeVisible("xpath", "//div[@purpose='results-list']", 20);
 		explicitWaitwaitForElementToBeClickable("xpath", "//input[@name='selectShipment']", 30);
 		 log.info("Summary Dashboard data has rendered");
+	}
+	
+	
+	public String shipmentDetailsPageCheck(){
+		
+		String runtimeShipmentId = driver.findElement(shipmentId).getText().toString();
+		runtimeShipmentId = runtimeShipmentId.substring(10).trim();
+		shipmentDetailsPageName = "Shipment " + runtimeShipmentId + " Details";
+		log.info("Verifying Page Check for Shipment Details Page");
+		return shipmentDetailsPageName;
+	}
+	
+	public void waitForShipmentDetailsPageToLoad(){
+		
+		explicitWaitFindElement("id", "second-navbar", 10);
+		log.info("Shipment Details Page has finished loading");
+	}
+	
+	
+	public void clickOnShipperToolTip(){
+		
+		explicitWaitwaitForElementToBeVisible("xpath", "//div[@section='bill-parties']/div/address/div/div", 10);
+		driver.findElement(shipperLink).click();
+		log.info("Clicked On Shipper Link from the Details Page");
 	}
 	
 	
@@ -184,6 +225,78 @@ public class ShipmentDetails extends Utilities{
 		
 		driver.findElement(addNoteLink).click();
 		log.info("Selected the Add Note Option from the drop down menu");
+	}
+	
+	public void navigateToSpecificShipmentFromDetailPage(String shmptId){
+		
+		driver.navigate().to("https://apps-" + tmp4 + ".sat.cbp.dhs.gov/ta/cargo/import/processing/shipment#detail?id=" + shmptId);	
+		log.info("Navigated to Shipment Detail: " + shmptId + " Page");
+	}
+	
+	public void clickOnEBondLink(){
+		
+		explicitWaitwaitForElementToBeClickable("xpath", "//a[@title='Link to Enter EBond']", 15);
+		driver.findElement(EBondLink).click();
+		log.info("Clicked on EBond Link");
+	}
+	
+	public void pageCheckForEbondApp(){
+		
+		explicitWaitwaitForElementToBeVisible("id", "bondSummary_filter", 30);
+		log.info("E-Bond Page has completed Loading");
+	}
+	
+	public void clickOnCargoReleaseLink(){
+		
+		explicitWaitwaitForElementToBeClickable("xpath", "//a[@title='Link to Enter Cargo Release']", 15);
+		driver.findElement(CargoReleaseLink).click();
+		log.info("Clicked on Cargo Release Link");
+	}
+	
+	public void pageCheckForCargoReleaseApp(){
+		
+		explicitWaitwaitForElementToBeVisible("xpath", "//div[@id='detailsActionMenu']//button[@title='Actions Menu']", 30);
+		log.info("Cargo Release Page has completed Loading");
+	}
+	
+	public void clickOnEntrySummaryLink(){
+		
+		explicitWaitwaitForElementToBeClickable("xpath", "//a[@title='Link to Enter Entry Summary']", 15);
+		driver.findElement(EntrySummaryLink).click();
+		log.info("Clicked on Entry Summary Link");
+	}
+	
+	public void pageCheckForEntrySummaryApp(){
+		
+		explicitWaitwaitForElementToBeVisible("id", "es-details-esTab-lineItemsDTFilter", 30);
+		log.info("Entry Summary Page has completed Loading");
+	}
+	
+	public void clickOnPGALink(){
+		
+		explicitWaitwaitForElementToBeClickable("xpath", "//a[@title='Link to Enter PGA Data Processing']", 15);
+		driver.findElement(PGALink).click();
+		log.info("Clicked on PGA Link");
+	}
+	
+	public void pageCheckForPGAApp(){
+		
+		explicitWaitwaitForElementToBeVisible("id", "aTopEntryDetails", 30);
+		log.info("PGA Data Processing Page has completed Loading");
+	}
+	
+	public void clickOnUpaxLink(){
+		
+		explicitWaitwaitForElementToBeClickable("xpath", "//div[@id='header-truck']//span[@class='fa fa-external-link fa-fw']", 20);
+		driver.findElement(UPAXLink).click();
+		log.info("Clicked on the UPAX Truck Driver Name Link");
+		
+	}
+	
+	public void pageCheckForUPAXApp(){
+		
+		explicitWaitwaitForElementToBeVisible("id", "passportNumber", 30);
+		log.info("UPAX Page has completed Loading");
 	}
 
 }

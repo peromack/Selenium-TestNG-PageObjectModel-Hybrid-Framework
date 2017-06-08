@@ -294,3 +294,5 @@ gradle-app.setting
 
 /ssh-agent.exe.stackdump
 /npm-debug.log
+/Screenshots/
+/logs/

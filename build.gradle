@@ -50,7 +50,7 @@ dependencies {
      test {
    		 useTestNG() {
         	// runlist to executed. path is relative to current folder
-        		suites 'src/test/java/testSuite/TestSuite.xml'
+        		suites 'src/test/java/testsuite/TestSuite.xml'
         		//ignoreFailures = true
    				 	 }
 		  }

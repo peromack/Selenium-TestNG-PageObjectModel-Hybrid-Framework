@@ -188,7 +188,7 @@ public class ShipmentDetailsTestCases extends Utilities  {
 			 }
 			 
 			 //Set Explicit and Implicit Wait Statements, Login to Test App
-			 manageDriverOptionsAndLoginToApp(RunTimeEnv);
+			 manageDriverOptionsAndLoginToApp(RunTimeEnv, RunType, RunTimeBrowser);
 			  
 			//Login to Import Cargo UI	
 		     objImportCargoLogin = new ImportCargoLogin(driver);
@@ -315,7 +315,7 @@ public class ShipmentDetailsTestCases extends Utilities  {
 				 RunTimeBrowser = RunTimeBrowserFromJsonFile;
 				 Utilities.setRunTimeEnv(RunTimeEnv);
 				 
-				 manageDriverOptionsAndLoginToApp(RunTimeEnv);
+				 manageDriverOptionsAndLoginToApp(RunTimeEnv, RunType, RunTimeBrowser);
 				  
 				//Login to Import Cargo UI	
 			     objImportCargoLogin = new ImportCargoLogin(driver);

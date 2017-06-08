@@ -1,11 +1,14 @@
 package pageobjects;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+
 import resources.Utilities;
 
 
@@ -21,20 +24,27 @@ public class DataBot extends Utilities{
 	
 	//Fields
 	By scac = By.id("scac");
-	By ladingNum = By.id("ladingNum");
+	By ladingNum = By.id("BillNumber");
+	By acasHouseLad = By.id("houseladingNum");
+	By entryNum = By.id("entryNumber");
+	By altLading = By.id("ladingNum");
 	By time = By.id("time");
 	By date = By.id("date");
+	By departureDate = By.id("dateOfDeparture");
 	By processDate = By.id("processDate");
 	By arrivalDate = By.id("arrivalDate");
-	By port = By.id("port");
+	By port = By.id("portOfArrival");
 	By shName = By.id("shName");
 	By shAddress = By.id("shAddress");
 	By shGeo = By.id("shGeo");
 	By cnName = By.id("cnName");
 	By cnAddress = By.id("cnAddress");
 	By cnGeo = By.id("cnGeo");
+	By PreLimStateDate = By.id("PrelimStateDate");
 	
 	//Destinations
+	By availableEndPoint = By.id("endpointSelect");
+	By devEndPoint = By.xpath("//div[@id='endpointSelect']/option");
 	By name = By.id("connName");
 	By destination = By.id("destName");
 	By hostName = By.id("hostname");
@@ -55,7 +65,6 @@ public class DataBot extends Utilities{
 		
 		this.driver = driver;
 	}
-	
 	
 	//Tabs Methods////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void clickOnFields(){
@@ -83,20 +92,25 @@ public class DataBot extends Utilities{
 		/*
 		 OCEA = Ocean Loader
 		 RAIL = Rail Loader
+		 ABE =  M1 Air
 		 MAIL = Mail Loader
 		 RFOR = R4 Truck Loader
+		 ACAS = SFA
 		 */
 	}
 	
-	public void setLadingNumber(String fourDigitIdentifier){
+	public String setLadingNumber(String optionalPrefixId){
 		
 		//Generate unique lading number
 		Random rand = new Random();
-		int  randomNumber = rand.nextInt(99999) + 00000;
+		int  randomNumber = rand.nextInt(99999999) + 00000000;
 
 		
-		driver.findElement(ladingNum).sendKeys(Keys.chord(Keys.CONTROL, "a"), fourDigitIdentifier + randomNumber);
+		driver.findElement(ladingNum).sendKeys(Keys.chord(Keys.CONTROL, "a"), optionalPrefixId + randomNumber);
 		log.info("Set a random lading number");
+		String tmp = optionalPrefixId + randomNumber;
+		
+		return tmp;
 		
 		/*
 		 999 = Ocean 
@@ -104,7 +118,72 @@ public class DataBot extends Utilities{
 		 777 = M1 Air
 		 666 = R4 Truck
 		 555 = Mail Loader
-		 444 = future loader
+		 444 = ACAS
+		 */
+	}
+	
+	public void setLadingNumberDoNotGenerate(String existingBillNum){
+		
+		driver.findElement(ladingNum).sendKeys(Keys.chord(Keys.CONTROL, "a"), existingBillNum);
+		log.info("Set an existing lading number");
+		
+	}
+	
+	public void setEntryNumberDoNotGenerate(String existingEntryNum){
+		
+		driver.findElement(entryNum).sendKeys(Keys.chord(Keys.CONTROL, "a"), existingEntryNum);
+		log.info("Set an existing Entry number");
+		
+	}
+	
+	public String setAltLadingNum(String fourDigitIdentifier){
+		
+		//Generate unique lading number
+				Random rand = new Random();
+				int  randomNumber = rand.nextInt(99999) + 00000;
+
+				
+				driver.findElement(altLading).sendKeys(Keys.chord(Keys.CONTROL, "a"), fourDigitIdentifier + randomNumber);
+				log.info("Set a random lading number: " + fourDigitIdentifier + randomNumber);
+				String tmp = fourDigitIdentifier + randomNumber;
+				
+				return tmp;
+	}
+	
+	public String setEntryNum(String optionalPrefixDigit){
+		
+		//Generate unique entry number
+				Random rand = new Random();
+				int  randomNumber = rand.nextInt(99999999) + 00000000;
+
+				
+				driver.findElement(entryNum).sendKeys(Keys.chord(Keys.CONTROL, "a"), optionalPrefixDigit + randomNumber);
+				log.info("Set a random entry number: " + optionalPrefixDigit + randomNumber);
+				String tmp = optionalPrefixDigit + randomNumber;
+				
+				return tmp;
+	}
+	
+	public String setAcasHouseLadingNumber(String fourDigitIdentifier){
+		
+		//Generate unique lading number
+		Random rand = new Random();
+		int  randomNumber = rand.nextInt(99999) + 00000;
+
+		
+		driver.findElement(acasHouseLad).sendKeys(Keys.chord(Keys.CONTROL, "a"), fourDigitIdentifier + randomNumber);
+		log.info("Set a random lading number");
+		String tmp = fourDigitIdentifier + randomNumber;
+		
+		return tmp;
+		
+		/*
+		 999 = Ocean 
+		 888 = Rail
+		 777 = M1 Air
+		 666 = R4 Truck
+		 555 = Mail Loader
+		 444 = ACAS
 		 */
 	}
 	
@@ -121,12 +200,62 @@ public class DataBot extends Utilities{
 	public void setDate(){
 		
 		 Date curDate = new Date();
-		 SimpleDateFormat format = new SimpleDateFormat("HHmmss");
+		 SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
 		 String DateToStr = format.format(curDate);
 		
 		
 		driver.findElement(date).sendKeys(Keys.chord(Keys.CONTROL, "a"), DateToStr);
 		log.info("Set Current date in HH:mm:ss");
+	}
+	
+	public void setEntrSumDate(){
+		
+		 Date curDate = new Date();
+		 SimpleDateFormat format = new SimpleDateFormat("MMddyy");
+		 String DateToStr = format.format(curDate);
+		
+		
+		driver.findElement(date).sendKeys(Keys.chord(Keys.CONTROL, "a"), DateToStr);
+		log.info("Set Entry Summary date in MMddyy");
+	}
+	
+	public void setPrelimEntrySummaryDate()throws Exception{
+		
+		 Date curDate = new Date();
+		 SimpleDateFormat format = new SimpleDateFormat("MMddyy");
+		 String DateToStr = format.format(curDate);
+		 Calendar cal = Calendar.getInstance();
+		 cal.setTime(format.parse(DateToStr));
+		 cal.add(Calendar.DATE, 1);
+		 DateToStr = format.format(cal.getTime());
+		
+		driver.findElement(PreLimStateDate).sendKeys(Keys.chord(Keys.CONTROL, "a"), DateToStr);
+		log.info("Set Current date in MM:dd:yy");
+	}
+	
+//	public void setPreLimEntrySummaryDate(){
+//		
+//		Date curDate = new Date();
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyy");
+//		Calendar cal = Calendar.getInstance();
+//		cal.setTime( dateFormat.parse(curDate));
+//		cal.add(Calendar.DATE, 1);
+//		
+//		
+//		driver.findElement().sendKeys(Keys.chord(Keys.CONTROL, "a"), DateToStr);
+//		log.info("Set Current date in MM:dd:yy");
+//	}
+	
+	public void setDepartureDate(){
+		
+		 Date curDate = new Date();
+		 SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		 String DateToStr = format.format(curDate);
+		
+		
+		driver.findElement(departureDate).sendKeys(Keys.chord(Keys.CONTROL, "a"), DateToStr);
+		log.info("Set Current date in HH:mm:ss");
+		
 	}
 	
 	public void setProcessDate(){
@@ -206,6 +335,18 @@ public class DataBot extends Utilities{
 		driver.findElement(name).sendKeys(Keys.chord(Keys.CONTROL, "a"), destName);
 		log.info("Set Destination Name");
 
+	}
+	
+	public void setEndPointToDev(){
+		
+		driver.findElement(availableEndPoint).click();
+		log.info("Clicked on DEV Endpoint");
+		
+		Utilities.explicitWaitwaitForElementToBeVisible("xpath", "//div[@id='endpointSelect']/option", 5);
+		
+		driver.findElement(devEndPoint);
+		log.info("Set DEV Endpoint to DEV Loader");
+		
 	}
 	
 	public void setDestinationAddress(String destinationAddress){

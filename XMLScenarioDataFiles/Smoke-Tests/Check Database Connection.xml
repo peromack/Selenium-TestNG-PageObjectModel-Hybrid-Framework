@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScenarioTestData>
+	<ScenarioName>Check Database Connection</ScenarioName>
+	<AllowToRunOnGrid>No</AllowToRunOnGrid>
+	<TestData>
+		<ShipmentID>????</ShipmentID>
+		<BillNumber>????</BillNumber>
+		<SCAC>????</SCAC>
+		<HBILL>????</HBILL>
+	</TestData>
+	<AppData>
+	</AppData>
+</ScenarioTestData>

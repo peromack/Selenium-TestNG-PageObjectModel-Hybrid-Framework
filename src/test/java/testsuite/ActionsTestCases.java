@@ -47,51 +47,7 @@ public class ActionsTestCases extends Utilities  {
 	 boolean allpreviousParamsMatch;
 
 	
-	 @Test(enabled = false)
-	 public void GRIDTest1(){ //test a scenario passing.
-		 
-		 objShipmentSummaryDashboard = new ShipmentSummaryDashboard(driver);
-		 objActionsOnShipments = new ActionsOnShipments(driver);
-		 
-		 objShipmentSummaryDashboard.verifyThatShipmentSummaryTableHasLoaded();
-		 
-		 boolean GRID = true;
-		 
-		 Assert.assertTrue(GRID);
-		 System.out.println("Console output for GRID Test 1");
-		 
-	 }
-	 
-	 @Test(enabled = false)
-	 public void GRIDTest2(){ //test another scenario passing.
-		 
-		 objShipmentSummaryDashboard = new ShipmentSummaryDashboard(driver);
-		 objActionsOnShipments = new ActionsOnShipments(driver);
-		 
-		 objShipmentSummaryDashboard.verifyThatShipmentSummaryTableHasLoaded();
-		 
-		 boolean GRID = true;
-		 
-		 Assert.assertTrue(GRID);
-		 System.out.println("Console output for GRID Test 2");
-		 
-	 }
-	 
-	 
-	 @Test(enabled = false)
-	 public void GRIDTest3(){ //test a scenario failing.
-		 
-		 objShipmentSummaryDashboard = new ShipmentSummaryDashboard(driver);
-		 objActionsOnShipments = new ActionsOnShipments(driver);
-		 
-		 objShipmentSummaryDashboard.verifyThatShipmentSummaryTableHasLoaded();
-		 
-		 Assert.fail();
-		 System.out.println("Console output for GRID Test 3");
-		 
-	 }
-	 
-	 
+
 	 @Test (priority = 0, enabled = false, retryAnalyzer = Retry.class) //Place Post Bill Hold 
 	 public void placePostBillHold () { 	
 			
@@ -360,10 +316,10 @@ public class ActionsTestCases extends Utilities  {
 		 if(skipCondition == false){
 			 tearDownRunTimeBrowsers();
 			 
-			 if(RunType.contentEquals("Local")){
+			 //if(RunType.contentEquals("Local")){
 				 deleteLogsOlderThanNDays();
 				 deleteScreenshotsOlderThanNDays();
-			 }
+			 //}
 		
 			 skipCondition = true;
 		 }
@@ -437,7 +393,7 @@ public class ActionsTestCases extends Utilities  {
 			 
 			 try{
 				 //Set Explicit and Implicit Wait Statements, Login to Test App
-				 manageDriverOptionsAndLoginToApp(RunTimeEnv);
+				 manageDriverOptionsAndLoginToApp(RunTimeEnv, RunType, RunTimeBrowser);
 				  
 				//Login to Import Cargo UI	
 			     objImportCargoLogin = new ImportCargoLogin(driver);
@@ -467,7 +423,7 @@ public class ActionsTestCases extends Utilities  {
 	 
 	 @AfterClass
 	  public void afterClass(){
-		
+		 tearDownRunTimeBrowsers();
 	 }
 	 
 	 @Parameters({ "Browser-Type", "Run-Type", "RunTime-Environment"})
@@ -570,7 +526,7 @@ public class ActionsTestCases extends Utilities  {
 				 Utilities.setRunTimeEnv(RunTimeEnv);
 				 
 				 try{
-					 manageDriverOptionsAndLoginToApp(RunTimeEnv);
+					 manageDriverOptionsAndLoginToApp(RunTimeEnv, RunType, RunTimeBrowser);
 					  
 					//Login to Import Cargo UI	
 				     objImportCargoLogin = new ImportCargoLogin(driver);
