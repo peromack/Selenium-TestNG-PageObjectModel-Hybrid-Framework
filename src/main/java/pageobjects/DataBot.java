@@ -103,8 +103,9 @@ public class DataBot extends Utilities{
 		
 		//Generate unique lading number
 		Random rand = new Random();
-		int  randomNumber = rand.nextInt(99999999) + 00000000;
-
+		int  randomNumber = 10000000 + rand.nextInt(90000000);
+		//int  randomNumber = rand.nextInt(99999999) + 00000000;
+		log.info("Random Number Generated is: " + randomNumber);
 		
 		driver.findElement(ladingNum).sendKeys(Keys.chord(Keys.CONTROL, "a"), optionalPrefixId + randomNumber);
 		log.info("Set a random lading number");
@@ -140,8 +141,9 @@ public class DataBot extends Utilities{
 		
 		//Generate unique lading number
 				Random rand = new Random();
-				int  randomNumber = rand.nextInt(99999) + 00000;
-
+				int  randomNumber = 10000 + rand.nextInt(90000);
+				//int  randomNumber = rand.nextInt(99999) + 10000;
+				log.info("Random Number Generated is: " + randomNumber);
 				
 				driver.findElement(altLading).sendKeys(Keys.chord(Keys.CONTROL, "a"), fourDigitIdentifier + randomNumber);
 				log.info("Set a random lading number: " + fourDigitIdentifier + randomNumber);
@@ -152,10 +154,11 @@ public class DataBot extends Utilities{
 	
 	public String setEntryNum(String optionalPrefixDigit){
 		
-		//Generate unique entry number
+				//Generate unique entry number
 				Random rand = new Random();
-				int  randomNumber = rand.nextInt(99999999) + 00000000;
-
+				int  randomNumber = 10000000 + rand.nextInt(90000000);
+				//int  randomNumber = rand.nextInt(99999999) + 10000000;
+				log.info("Random Number Generated is: " + randomNumber);
 				
 				driver.findElement(entryNum).sendKeys(Keys.chord(Keys.CONTROL, "a"), optionalPrefixDigit + randomNumber);
 				log.info("Set a random entry number: " + optionalPrefixDigit + randomNumber);
@@ -168,7 +171,9 @@ public class DataBot extends Utilities{
 		
 		//Generate unique lading number
 		Random rand = new Random();
-		int  randomNumber = rand.nextInt(99999) + 00000;
+		int  randomNumber = 10000 + rand.nextInt(90000);
+		//int  randomNumber = rand.nextInt(99999) + 10000;
+		log.info("Random Number Generated is: " + randomNumber);
 
 		
 		driver.findElement(acasHouseLad).sendKeys(Keys.chord(Keys.CONTROL, "a"), fourDigitIdentifier + randomNumber);
@@ -226,7 +231,13 @@ public class DataBot extends Utilities{
 		 String DateToStr = format.format(curDate);
 		 Calendar cal = Calendar.getInstance();
 		 cal.setTime(format.parse(DateToStr));
+		 
 		 cal.add(Calendar.DATE, 1);
+		 
+		 if(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+			 cal.add(Calendar.DATE, 3);
+		 }
+		 
 		 DateToStr = format.format(cal.getTime());
 		
 		driver.findElement(PreLimStateDate).sendKeys(Keys.chord(Keys.CONTROL, "a"), DateToStr);
